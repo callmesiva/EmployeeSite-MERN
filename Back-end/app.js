@@ -9,11 +9,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(helmet());
 
-//allowed origin
-const corsOptions = {
-  origin: "https://employee-site-mern.vercel.app/",
-};
-app.use(cors(corsOptions));
+app.use(cors());
 
 // Server and DB status check API
 app.get("/app/status", async (req, res) => {
