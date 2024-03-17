@@ -10,7 +10,10 @@ app.use(bodyParser.json());
 app.use(helmet());
 app.use(cors());
 
-// Server and DB status check API
+// Serve static files
+app.use(express.static(path.join(__dirname, "client", "build")));
+
+// Health check API
 app.get("/app/status", async (req, res) => {
   if (db.readyState === 1) {
     res
@@ -21,6 +24,15 @@ app.get("/app/status", async (req, res) => {
   }
 });
 
+// Handle other routes
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
+
 const postData = require("./SRC/route/postRoute");
 app.use("/", postData);
-app.listen(process.env.PORT);
+
+const PORT = process.env.PORT || 3800;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
