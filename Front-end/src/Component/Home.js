@@ -4,6 +4,7 @@ import { deleteEmployeeData, addEmployeeData } from "../RTK/EmployeeSlice";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Popup from "./Popup";
+import url from "../utils/constUrl";
 
 function Home() {
   const [showPop, setShowPop] = useState("");
@@ -39,14 +40,11 @@ function Home() {
   const deleteEmp = async (details) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(
-        `http://127.0.0.1:3800/store/employee/${details._id}`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
+      await axios.delete(`${url}/store/employee/${details._id}`, {
+        headers: {
+          Authorization: token,
+        },
+      });
       dispatch(deleteEmployeeData(details));
     } catch (error) {
       console.error("Error deleting employee details:", error);
@@ -63,14 +61,11 @@ function Home() {
     }
     (async () => {
       try {
-        const response = await axios.get(
-          "http://127.0.0.1:3800/store/employee",
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
+        const response = await axios.get(`${url}/store/employee`, {
+          headers: {
+            Authorization: token,
+          },
+        });
         dispatch(addEmployeeData(response.data));
       } catch (error) {
         console.error("Error fetching employee data:", error);

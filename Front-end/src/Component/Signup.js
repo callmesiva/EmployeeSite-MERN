@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import url from "../utils/constUrl";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ const Signup = () => {
     try {
       if (password !== CnfPassword) throw new Error("Password mismatched");
       setIsLoading(true);
-      let response = await axios.post("http://127.0.0.1:3800/register", {
+      let response = await axios.post(`${url}/register`, {
         email,
         password,
       });

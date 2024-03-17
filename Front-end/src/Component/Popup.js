@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addEmployeeData, updateEmployeeData } from "../RTK/EmployeeSlice";
 import axios from "axios";
+import url from "../utils/constUrl";
 
 function Popup({ onClose, details }) {
   const [_id, set_id] = useState(details._id || "");
@@ -25,7 +26,7 @@ function Popup({ onClose, details }) {
         package: lpa,
       };
       if (_id) {
-        await axios.post(`http://127.0.0.1:3800/update/employee/${_id}`, data, {
+        await axios.post(`${url}/update/employee/${_id}`, data, {
           headers: {
             Authorization: token,
           },
@@ -33,7 +34,7 @@ function Popup({ onClose, details }) {
         data._id = _id;
         dispatch(updateEmployeeData(data));
       } else {
-        await axios.post("http://127.0.0.1:3800/store/employee", data, {
+        await axios.post(`${url}/store/employee`, data, {
           headers: {
             Authorization: token,
           },
