@@ -34,7 +34,7 @@ function Popup({ onClose, details }) {
         data._id = _id;
         dispatch(updateEmployeeData(data));
       } else {
-        await axios.post(`${url}/store/employee`, data, {
+        let response = await axios.post(`${url}/store/employee`, data, {
           headers: {
             Authorization: token,
           },
@@ -49,6 +49,11 @@ function Popup({ onClose, details }) {
     } catch (error) {
       console.error("Error adding employee data:", error);
       alert("Failed to add employee data");
+      setEmpId("");
+      setName("");
+      setEmail("");
+      setPosition("");
+      setLpa("");
     }
   };
 
