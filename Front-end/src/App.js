@@ -5,7 +5,7 @@ import Home from "./Component/Home";
 import Login from "./Component/Login";
 import Signup from "./Component/Signup";
 import { Provider } from "react-redux";
-import Store from "./RTK/store";
+import Store from "./RTK/Store";
 
 const AppLayout = () => (
   <Provider store={Store}>
