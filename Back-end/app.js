@@ -3,18 +3,17 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./dbConfig");
 const helmet = require("helmet");
-const rateLimit = require("express-rate-limit");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors());
 app.use(helmet());
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-});
-app.use(limiter);
+
+//allowed origin
+const corsOptions = {
+  origin: "https://employee-site-mern.vercel.app/",
+};
+app.use(cors(corsOptions));
 
 // Server and DB status check API
 app.get("/app/status", async (req, res) => {
