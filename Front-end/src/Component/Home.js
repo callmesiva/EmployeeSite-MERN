@@ -66,7 +66,8 @@ function Home() {
             Authorization: token,
           },
         });
-        dispatch(addEmployeeData(response.data));
+        if (response.data.length === 0) setData(["empty"]);
+        else dispatch(addEmployeeData(response.data));
       } catch (error) {
         console.error("Error fetching employee data:", error);
       }
@@ -148,7 +149,9 @@ function Home() {
           </tr>
         </thead>
         <tbody>
-          {datas.length != 0 ? (
+          {datas[0] == "empty" ? (
+            <></>
+          ) : datas.length != 0 ? (
             datas.map((details, index) => {
               return (
                 <tr className="border-2" key={index}>
@@ -231,7 +234,9 @@ function Home() {
         </tbody>
       </table>
 
-      {datas.length === 0 ? (
+      {datas[0] == "empty" ? (
+        <></>
+      ) : datas.length === 0 ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="2em"
