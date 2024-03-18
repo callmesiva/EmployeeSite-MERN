@@ -25,9 +25,11 @@ const EmployeeSlice = createSlice({
     },
 
     deleteEmployeeData: (state, actions) => {
-      state.employeeData = [
+      let arr = [
         ...state.employeeData.filter((data) => data._id != actions.payload._id),
       ];
+      if (arr.length === 0) state.employeeData = ["empty"];
+      else state.employeeData = arr;
     },
   },
 });
