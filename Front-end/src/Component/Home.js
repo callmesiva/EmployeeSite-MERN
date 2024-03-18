@@ -10,7 +10,7 @@ function Home() {
   const [showPop, setShowPop] = useState("");
   const [search, setSearch] = useState("");
   const empList = useSelector((store) => store.employee.employeeData);
-  const [Data, setData] = useState([]);
+  const [datas, setData] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -148,8 +148,8 @@ function Home() {
           </tr>
         </thead>
         <tbody>
-          {Data.length != 0 ? (
-            Data.map((details, index) => {
+          {datas.length != 0 ? (
+            datas.map((details, index) => {
               return (
                 <tr className="border-2" key={index}>
                   <td className="w-52 border-x-2 text-center">
@@ -231,7 +231,7 @@ function Home() {
         </tbody>
       </table>
 
-      {Data.length === 0 ? (
+      {datas.length === 0 ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="2em"
@@ -258,7 +258,7 @@ function Home() {
           </path>
         </svg>
       ) : (
-        Data.map((details, index) => {
+        datas.map((details, index) => {
           return (
             <div
               className=" w-auto border-2 shadow-lg m-2 sm:hidden rounded-lg flex justify-between"
