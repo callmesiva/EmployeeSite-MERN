@@ -10,7 +10,7 @@ function Home() {
   const [showPop, setShowPop] = useState("");
   const [search, setSearch] = useState("");
   const empList = useSelector((store) => store.employee.employeeData);
-  const [Data, setData] = useState(empList);
+  const [Data, setData] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -88,6 +88,7 @@ function Home() {
           className="w-6 h-6"
           onClick={() => {
             localStorage.removeItem("token");
+            dispatch(addEmployeeData([]));
             navigate("/");
           }}
         >
@@ -138,16 +139,16 @@ function Home() {
       <table className="hidden sm:block w-full">
         <thead>
           <tr>
-            <th className="w-52 border-2">Emp Id</th>
-            <th className="w-52 h-10 border-2">Name</th>
-            <th className="w-52 border-2">Email Id</th>
-            <th className="w-52 border-2">Position</th>
-            <th className="w-52 border-2">Package/Lpa</th>
-            <th className="w-52 border-2">Actions</th>
+            <th className="w-52 border-2 text-center">Emp Id</th>
+            <th className="w-52 h-10 border-2 text-center">Name</th>
+            <th className="w-52 border-2 text-center">Email Id</th>
+            <th className="w-52 border-2 text-center">Position</th>
+            <th className="w-52 border-2 text-center">Package/Lpa</th>
+            <th className="w-52 border-2 text-center">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {Data &&
+          {Data.length != 0 ? (
             Data.map((details, index) => {
               return (
                 <tr className="border-2" key={index}>
@@ -195,11 +196,68 @@ function Home() {
                   </td>
                 </tr>
               );
-            })}
+            })
+          ) : (
+            <tr>
+              <td colSpan="6" className="text-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="2em"
+                  height="2em"
+                  viewBox="0 0 24 24"
+                  className="inline-block mt-20 align-middle"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"
+                    opacity="0.25"
+                  />
+                  <path
+                    fill="currentColor"
+                    d="M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z"
+                  >
+                    <animateTransform
+                      attributeName="transform"
+                      dur="0.75s"
+                      repeatCount="indefinite"
+                      type="rotate"
+                      values="0 12 12;360 12 12"
+                    />
+                  </path>
+                </svg>
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
 
-      {Data &&
+      {Data.length === 0 ? (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="2em"
+          height="2em"
+          viewBox="0 0 24 24"
+          className="mt-40 mx-auto sm:hidden"
+        >
+          <path
+            fill="currentColor"
+            d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"
+            opacity="0.25"
+          />
+          <path
+            fill="currentColor"
+            d="M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z"
+          >
+            <animateTransform
+              attributeName="transform"
+              dur="0.75s"
+              repeatCount="indefinite"
+              type="rotate"
+              values="0 12 12;360 12 12"
+            />
+          </path>
+        </svg>
+      ) : (
         Data.map((details, index) => {
           return (
             <div
@@ -240,7 +298,8 @@ function Home() {
               </div>
             </div>
           );
-        })}
+        })
+      )}
     </div>
   );
 }
